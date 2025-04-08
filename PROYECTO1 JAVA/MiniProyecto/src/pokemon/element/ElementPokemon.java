@@ -10,6 +10,7 @@ public class ElementPokemon {
     private static Ataque[] waterMoves;
     private static Ataque[] grassMoves;
     private static Ataque[] groundMoves;
+    private static Ataque[] electricMoves;
     private static Pokemon[] pokemons;
 
     public static void initializeMoves() {
@@ -44,6 +45,14 @@ public class ElementPokemon {
                 new Ataque("Bofetón Lodo", Pokemon.TipoAtaque.ESPACIAL, (byte) 75),
                 new Ataque("Avalancha", Pokemon.TipoAtaque.FISICO, (byte) 70)
         };
+
+        electricMoves = new Ataque[]{
+            new Ataque("inpactrueno", Pokemon.TipoAtaque.FISICO, (byte) 78),
+            new Ataque("Rayo", Pokemon.TipoAtaque.FISICO, (byte) 81),
+            new Ataque("Puño Trueno", Pokemon.TipoAtaque.ESPACIAL,(byte) 92),
+            new Ataque("Relampago", Pokemon.TipoAtaque.ESPACIAL,(byte) 89),
+            new Ataque("Truenete", Pokemon.TipoAtaque.FISICO, (byte) 52)
+        };
     }
 
     public static void initializePokemons() {
@@ -60,7 +69,11 @@ public class ElementPokemon {
                 new Pokemon("Sandslash", (short) 324, Pokemon.TipoPokemon.TIERRA, new Ataque[]{groundMoves[0], groundMoves[1], groundMoves[2], groundMoves[3]}),
                 new Pokemon("Nidoking", (short) 344, Pokemon.TipoPokemon.TIERRA, new Ataque[]{groundMoves[1], groundMoves[2], groundMoves[3], groundMoves[4]}),
                 new Pokemon("Hippowdon", (short) 350, Pokemon.TipoPokemon.TIERRA, new Ataque[]{groundMoves[0], groundMoves[1], groundMoves[2], groundMoves[3]}),
-                new Pokemon("Rhyperior", (short) 350, Pokemon.TipoPokemon.TIERRA, new Ataque[]{groundMoves[1], groundMoves[2], groundMoves[3], groundMoves[4]})
+                new Pokemon("Rhyperior", (short) 350, Pokemon.TipoPokemon.TIERRA, new Ataque[]{groundMoves[1], groundMoves[2], groundMoves[3], groundMoves[4]}),
+
+                new Pokemon("Pikachu", (short) 176, Pokemon.TipoPokemon.ELECTRICO, new Ataque[]{electricMoves[0], electricMoves[2], electricMoves[1], electricMoves[4]}),
+                new Pokemon("Kilowattrel", (short) 208, Pokemon.TipoPokemon.ELECTRICO, new Ataque[]{electricMoves[1], electricMoves[3], electricMoves[0], electricMoves[4]}),
+                new Pokemon("Zapdos", (short) 274, Pokemon.TipoPokemon.ELECTRICO, new Ataque[]{electricMoves[3], electricMoves[4], electricMoves[2], electricMoves[1]})
         };
     }
 

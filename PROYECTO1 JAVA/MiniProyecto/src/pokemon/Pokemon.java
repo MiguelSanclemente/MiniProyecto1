@@ -28,10 +28,24 @@ public class    Pokemon {
     };
 
     public enum TipoPokemon{
-        Fuego, AGUA, TIERRA, PLANTA;
+        Fuego(new String[]{"PLANTA"}),
+        AGUA(new String[]{"FUEGO"}),
+        TIERRA(new String[]{"ELECTRICO"}),
+        PLANTA(new String[]{"AGUA", "ELECTRICO", "TIERRA"}),
+        ELECTRICO(new String[]{"AGUA"});
+
+        public String[] strong;
+        TipoPokemon(String[] strong){
+            this.strong = strong;
+        }
+
+        String[] getStrong(){
+            return strong;
+        }
+
     }
 
-    public Pokemon(String namePokemon, short HP, TipoPokemon typePokemon, Ataque[] ataque) {
+    public Pokemon(String namePokemon, short hp, TipoPokemon typePokemon, Ataque[] ataque) {
         this.namePokemon = namePokemon;
         this.hp = hp;
         this.typePokemon = typePokemon;
@@ -65,11 +79,18 @@ public class    Pokemon {
     public void menuPokemon(Scanner sc, String[] Trainers){
         System.out.println("como quieres jugar?: \n1. pokemones aleatorio\n2. crear tus propios pokemones " );
         int opcion = sc.nextInt();
+        sc.nextLine();
         switch (opcion) {
             case 1 -> {randomPokemon();}
             case 2 -> {createPokemon(sc);}
         }
     }
+ 
+    private void randomPokemon() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'randomPokemon'");
+    }
+
 
     public String randomTipoPokemon(){
         Random rand = new Random();
@@ -92,10 +113,10 @@ public class    Pokemon {
                     hp = sc.nextShort();
                     if(hp > 0 && hp <= 350){
                         pokemons[i].setHP(hp);
-                        flag = true;
+                        flag = false;
                     }else{
                         System.out.println("El numero de vida del pokemon no tiene la vida necesesaria o correspodida");
-                        flag = false;
+                        flag = true;
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error, lo digitado no coicide", JOptionPane.ERROR_MESSAGE);
