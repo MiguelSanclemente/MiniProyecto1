@@ -19,11 +19,9 @@ public class Entrenador {
     public void setNameTrainer(Scanner sc) {
         Pokemon pokemon = new Pokemon();
         for (int i = 0; i < Trainers.length; i++) {
-            System.out.println("Ingrese el nombre del entrenador  " + i + 1);
+            System.out.println("Ingrese el nombre del entrenador " + String.format("%02d", i + 1));
             Trainers[i] = sc.nextLine();
             pokemon.menuPokemon(sc, Trainers);
-
         }
-
     }
 }

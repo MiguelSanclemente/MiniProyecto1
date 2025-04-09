@@ -11,23 +11,23 @@ public class ElementPokemon {
     private static Ataque[] grassMoves;
     private static Ataque[] groundMoves;
     private static Ataque[] electricMoves;
-    private static Pokemon[] pokemons;
+    private static Pokemon[] pokemon;
 
     public static void initializeMoves() {
         fireMoves = new Ataque[]{
-                new Ataque("Lanzallamas", Pokemon.TipoAtaque.FISICO, (byte) 90),
-                new Ataque("Llamarada", Pokemon.TipoAtaque.ESPACIAL, (byte) 85),
-                new Ataque("Puño Fuego", Pokemon.TipoAtaque.FISICO, (byte) 75),
-                new Ataque("Giro Fuego", Pokemon.TipoAtaque.ESPACIAL, (byte) 70),
-                new Ataque("Nitrocarga", Pokemon.TipoAtaque.FISICO, (byte) 65)
+            new Ataque("Lanzallamas", Pokemon.TipoAtaque.FISICO, (byte) 90),
+            new Ataque("Llamarada", Pokemon.TipoAtaque.ESPACIAL, (byte) 85),
+            new Ataque("Puño Fuego", Pokemon.TipoAtaque.FISICO, (byte) 75),
+            new Ataque("Giro Fuego", Pokemon.TipoAtaque.ESPACIAL, (byte) 70),
+            new Ataque("Nitrocarga", Pokemon.TipoAtaque.FISICO, (byte) 65)
         };
 
         waterMoves = new Ataque[]{
-                new Ataque("Hidrobomba", Pokemon.TipoAtaque.ESPACIAL, (byte) 95),
-                new Ataque("Surf", Pokemon.TipoAtaque.ESPACIAL, (byte) 85),
-                new Ataque("Acua Cola", Pokemon.TipoAtaque.FISICO, (byte) 80),
-                new Ataque("Pistola Agua", Pokemon.TipoAtaque.ESPACIAL, (byte) 65),
-                new Ataque("Cascada", Pokemon.TipoAtaque.FISICO, (byte) 75)
+            new Ataque("Hidrobomba", Pokemon.TipoAtaque.ESPACIAL, (byte) 95),
+            new Ataque("Surfer", Pokemon.TipoAtaque.ESPACIAL, (byte) 85),
+            new Ataque("Acua poket", Pokemon.TipoAtaque.FISICO, (byte) 80),
+            new Ataque("Pistola Agua", Pokemon.TipoAtaque.ESPACIAL, (byte) 65),
+            new Ataque("Acua lluvia", Pokemon.TipoAtaque.FISICO, (byte) 75)
         };
 
         grassMoves = new Ataque[]{
@@ -56,7 +56,7 @@ public class ElementPokemon {
     }
 
     public static void initializePokemons() {
-        pokemons = new Pokemon[]{
+        pokemon = new Pokemon[]{
                 new Pokemon("Charizard", (short) 282, Pokemon.TipoPokemon.Fuego, new Ataque[]{fireMoves[0], fireMoves[1], fireMoves[2], fireMoves[3]}),
                 new Pokemon("Flareon", (short) 198, Pokemon.TipoPokemon.Fuego, new Ataque[]{fireMoves[1], fireMoves[2], fireMoves[3], fireMoves[4]}),
 
@@ -89,5 +89,33 @@ public class ElementPokemon {
 
 
         }
+    }
+
+    public static Ataque[] getFireMoves() {
+        return fireMoves;
+    }
+
+    public static Ataque[] getWaterMoves() {
+        return waterMoves;
+    }
+
+    public static Ataque[] getGrassMoves() {
+        return grassMoves;
+    }
+
+    public static Ataque[] getGroundMoves() {
+        return groundMoves;
+    }
+
+    public static Ataque[] getElectricMoves() {
+        return electricMoves;
+    }
+
+    public static void main(String[] args) {
+        ElementPokemon.initializeData(); 
+    }
+
+    public static Pokemon[] getPokemon() {
+        return pokemon; 
     }
 }
