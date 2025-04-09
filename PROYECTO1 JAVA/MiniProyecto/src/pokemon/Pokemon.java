@@ -141,12 +141,14 @@ public class    Pokemon {
         for (int i = 0; i < pokemons.length; i++) {
             pokemons[i] = new Pokemon();
             System.out.println("Ingrese el nombre del Pokémon " + (i + 1) + ":");
+            sc.nextLine(); // Consumir el salto de línea pendiente
             pokemons[i].setNamePokemon(sc.nextLine());
 
             do {
                 try {
                     System.out.println("Ingrese el número de vida del Pokémon: (1hp-350hp)");
                     hp = sc.nextShort();
+                    sc.nextLine(); // Consumir el salto de línea pendiente
                     if (hp > 0 && hp <= 350) {
                         pokemons[i].setHP(hp);
                         flag = false;
@@ -156,7 +158,7 @@ public class    Pokemon {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error, lo digitado no coincide", JOptionPane.ERROR_MESSAGE);
-                    sc.nextLine();
+                    sc.nextLine(); // Consumir el salto de línea pendiente
                     flag = true;
                 }
             } while (flag);
@@ -171,6 +173,7 @@ public class    Pokemon {
 
             do {
                 int opcion = sc.nextInt();
+                sc.nextLine(); // Consumir el salto de línea pendiente
                 switch (opcion) {
                     case 1 -> {
                         pokemons[i].setTypePokemon(TipoPokemon.Fuego);
@@ -201,6 +204,7 @@ public class    Pokemon {
 
             System.out.println("Forma de ataque: \n1. Crear tus propios ataques \n2. Hacer ataques aleatorios");
             int opcion = sc.nextInt();
+            sc.nextLine(); // Consumir el salto de línea pendiente
             switch (opcion) {
                 case 1 -> {
                     Ataque[] ataquesPersonalizados = crearAtaquesPersonalizados(sc);
