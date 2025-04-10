@@ -57,8 +57,8 @@ public class ElementPokemon {
 
     public static void initializePokemons() {
         pokemon = new Pokemon[] {
-            new Pokemon("Charizard", (short) 282, Pokemon.TipoPokemon.Fuego, new Ataque[] {fireMoves[0], fireMoves[1], fireMoves[2], fireMoves[3]}),
-            new Pokemon("Flareon", (short) 198, Pokemon.TipoPokemon.Fuego, new Ataque[] {fireMoves[1], fireMoves[2], fireMoves[3], fireMoves[4]}),
+            new Pokemon("Charizard", (short) 282, Pokemon.TipoPokemon.FUEGO, new Ataque[] {fireMoves[0], fireMoves[1], fireMoves[2], fireMoves[3]}),
+            new Pokemon("Flareon", (short) 198, Pokemon.TipoPokemon.FUEGO, new Ataque[] {fireMoves[1], fireMoves[2], fireMoves[3], fireMoves[4]}),
 
             new Pokemon("Blastoise", (short) 292, Pokemon.TipoPokemon.AGUA, new Ataque[] {waterMoves[0], waterMoves[1], waterMoves[2], waterMoves[3]}),
             new Pokemon("Vaporeon", (short) 214, Pokemon.TipoPokemon.AGUA, new Ataque[] {waterMoves[1], waterMoves[2], waterMoves[3], waterMoves[4]}),
@@ -84,9 +84,63 @@ public class ElementPokemon {
 
     public void createAtaques(Scanner sc, Ataque[] ataque) {
         for (int i = 0; i < ataque.length; i++) {
-            System.out.println("ingrese el nombre del ataque");
-            ataque[i].setNameAtaque(sc.nextLine());
+            System.out.println("Ingrese el nombre del ataque " + (i + 1) + ":");
+            String nombreAtaque = sc.nextLine();
+
+            System.out.println("Seleccione el tipo de ataque:");
+            System.out.println("1. FISICO");
+            System.out.println("2. ESPACIAL");
+            int tipoOpcion = sc.nextInt();
+            sc.nextLine(); // Consumir el salto de línea pendiente
+            Pokemon.TipoAtaque tipoAtaque = (tipoOpcion == 1) ? Pokemon.TipoAtaque.FISICO : Pokemon.TipoAtaque.ESPACIAL;
+
+            int poder;
+            do {
+                System.out.println("Ingrese el poder del ataque (máximo 150 para ESPACIAL, 100 para FISICO):");
+                poder = sc.nextInt();
+                sc.nextLine(); // Consumir el salto de línea pendiente
+                if ((tipoAtaque == Pokemon.TipoAtaque.FISICO && poder > 0 && poder <= 100) ||
+                    (tipoAtaque == Pokemon.TipoAtaque.ESPACIAL && poder > 0 && poder <= 150)) {
+                    break;
+                } else {
+                    System.out.println("El poder del ataque no es válido. Intente de nuevo.");
+                }
+            } while (true);
+
+            // Inicializar el objeto Ataque en la posición i
+            ataque[i] = new Ataque(nombreAtaque, tipoAtaque, (byte) poder);
         }
+    }
+
+    public Ataque[] createAtaques(Scanner sc) {
+        Ataque[] ataquesPersonalizados = new Ataque[4];
+        for (int i = 0; i < ataquesPersonalizados.length; i++) {
+            System.out.println("Ingrese el nombre del ataque " + (i + 1) + ":");
+            String nombreAtaque = sc.nextLine();
+
+            System.out.println("Seleccione el tipo de ataque:");
+            System.out.println("1. FISICO");
+            System.out.println("2. ESPACIAL");
+            int tipoOpcion = sc.nextInt();
+            sc.nextLine(); // Consumir el salto de línea pendiente
+            Pokemon.TipoAtaque tipoAtaque = (tipoOpcion == 1) ? Pokemon.TipoAtaque.FISICO : Pokemon.TipoAtaque.ESPACIAL;
+
+            int poder;
+            do {
+                System.out.println("Ingrese el poder del ataque (máximo 150 para ESPACIAL, 100 para FISICO):");
+                poder = sc.nextInt();
+                sc.nextLine(); // Consumir el salto de línea pendiente
+                if ((tipoAtaque == Pokemon.TipoAtaque.FISICO && poder > 0 && poder <= 100) ||
+                    (tipoAtaque == Pokemon.TipoAtaque.ESPACIAL && poder > 0 && poder <= 150)) {
+                    break;
+                } else {
+                    System.out.println("El poder del ataque no es válido. Intente de nuevo.");
+                }
+            } while (true);
+
+            ataquesPersonalizados[i] = new Ataque(nombreAtaque, tipoAtaque, (byte) poder);
+        }
+        return ataquesPersonalizados;
     }
 
     public static Ataque[] getFireMoves() {
@@ -111,6 +165,15 @@ public class ElementPokemon {
 
     public static void main(String[] args) {
         ElementPokemon.initializeData();
+
+        Scanner sc = new Scanner(System.in);
+        ElementPokemon element = new ElementPokemon();
+
+        // Crear ataques personalizados
+        Ataque[] ataquesPersonalizados = element.createAtaques(sc);
+
+        // Asignar los ataques personalizados a un Pokémon
+        Pokemon pokemonPersonalizado = new Pokemon("Pokemon Personalizado", (short) 200, Pokemon.TipoPokemon.FUEGO, ataquesPersonalizados);
     }
 
     public static Pokemon[] getPokemon() {
