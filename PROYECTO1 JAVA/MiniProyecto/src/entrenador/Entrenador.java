@@ -24,4 +24,8 @@ public class Entrenador {
             pokemon.menuPokemon(sc, Trainers);
         }
     }
+
+    public String[] getTrainers() {
+        return Trainers;
+    }
 }

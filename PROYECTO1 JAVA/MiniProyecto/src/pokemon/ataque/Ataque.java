@@ -3,14 +3,14 @@ package pokemon.ataque;
 import pokemon.Pokemon;
 
 public class Ataque {
-    String nameAtaque;
-    short daño;
-    Pokemon.TipoAtaque tipoPokemon;
+    private String nameAtaque;
+    private Pokemon.TipoAtaque tipoAtaque;
+    private byte power;
 
-    public Ataque(String nameAtaque, Pokemon.TipoAtaque tipoPokemon, short daño) {
+    public Ataque(String nameAtaque, Pokemon.TipoAtaque tipoAtaque, byte power) {
         this.nameAtaque = nameAtaque;
-        this.tipoPokemon = tipoPokemon;
-        this.daño = daño;
+        this.tipoAtaque = tipoAtaque;
+        this.power = power;
     }
 
     enum TipoAtaque {
@@ -21,23 +21,11 @@ public class Ataque {
         return nameAtaque;
     }
 
-    public void setNameAtaque(String nameAtaque) {
-        this.nameAtaque = nameAtaque;
+    public Pokemon.TipoAtaque getTipoAtaque() {
+        return tipoAtaque;
     }
 
-    public short getDaño() {
-        return daño;
-    }
-
-    public void setDaño(short daño) {
-        this.daño = daño;
-    }
-
-    public Pokemon.TipoAtaque getTipoPokemon() {
-        return tipoPokemon;
-    }
-
-    public void setTipoPokemon(Pokemon.TipoAtaque tipoPokemon) {
-        this.tipoPokemon = tipoPokemon;
+    public byte getPower() {
+        return power;
     }
 }

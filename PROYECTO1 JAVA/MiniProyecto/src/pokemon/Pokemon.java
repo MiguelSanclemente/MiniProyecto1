@@ -31,21 +31,21 @@ public class    Pokemon {
     };
 
     public enum TipoPokemon{
-        Fuego(new String[]{"PLANTA"}),
+        FUEGO(new String[]{"PLANTA"}),
         AGUA(new String[]{"FUEGO"}),
         TIERRA(new String[]{"ELECTRICO"}),
-        PLANTA(new String[]{"AGUA", "ELECTRICO", "TIERRA"}),
+        PLANTA(new String[]{"AGUA", "TIERRA"}),
         ELECTRICO(new String[]{"AGUA"});
 
-        public String[] strong;
-        TipoPokemon(String[] strong){
-            this.strong = strong;
+        private final String[] strongAgainst;
+
+        TipoPokemon(String[] strongAgainst){
+            this.strongAgainst = strongAgainst;
         }
 
-        String[] getStrong(){
-            return strong;
+        public boolean isStrongAgainst(TipoPokemon other) {
+            return Arrays.asList(strongAgainst).contains(other.name());
         }
-
     }
 
     public Pokemon(String namePokemon, short hp, TipoPokemon typePokemon, Ataque[] ataque) {
@@ -83,6 +83,10 @@ public class    Pokemon {
         return pokemon;
     }
 
+    public Ataque[] getAtaque() {
+        return ataque;
+    }
+
     public void menuPokemon(Scanner sc, String[] Trainers){
         System.out.println("como quieres jugar?: \n1. pokemones aleatorio\n2. crear tus propios pokemones " );
         int opcion = sc.nextInt();
@@ -113,7 +117,7 @@ public class    Pokemon {
         ElementPokemon.initializeData();
 
         
-        Pokemon[] allPokemons = (Pokemon[]) element.getPokemon();
+        Pokemon[] allPokemons = (Pokemon[]) ElementPokemon.getPokemon();
         if (teamSize > allPokemons.length) {
             throw new IllegalArgumentException("El tamaño del equipo no puede ser mayor que el número de Pokémon disponibles.");
         }
@@ -176,7 +180,7 @@ public class    Pokemon {
                 sc.nextLine(); // Consumir el salto de línea pendiente
                 switch (opcion) {
                     case 1 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.Fuego);
+                        pokemons[i].setTypePokemon(TipoPokemon.FUEGO);
                         flag = false;
                     }
                     case 2 -> {
@@ -231,7 +235,7 @@ public class    Pokemon {
     private Ataque[] obtenerAtaquesAleatorios(TipoPokemon tipoPokemon) {
         Ataque[] ataquesDisponibles;
         switch (tipoPokemon) {
-            case Fuego -> ataquesDisponibles = ElementPokemon.getFireMoves();
+            case FUEGO -> ataquesDisponibles = ElementPokemon.getFireMoves();
             case AGUA -> ataquesDisponibles = ElementPokemon.getWaterMoves();
             case TIERRA -> ataquesDisponibles = ElementPokemon.getGroundMoves();
             case PLANTA -> ataquesDisponibles = ElementPokemon.getGrassMoves();
