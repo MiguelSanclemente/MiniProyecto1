@@ -12,16 +12,32 @@ public class Main {
         // Inicializa los datos necesarios
         ElementPokemon.initializeData();
 
-        // Crear entrenadores y configurar sus equipos
-        Entrenador entrenador = new Entrenador();
-        entrenador.setNameTrainer(sc);
+        // Crear el primer entrenador y configurar su equipo
+        Entrenador entrenador1 = new Entrenador();
+        entrenador1.setNameTrainer(sc);
 
-        String nombreEntrenador1 = entrenador.getTrainers()[0];
-        String nombreEntrenador2 = entrenador.getTrainers()[1];
+        // Crear el segundo entrenador y configurar su equipo
+        Entrenador entrenador2 = new Entrenador();
+        entrenador2.setNameTrainer(sc);
 
-        // Seleccionar equipos de Pokémon
-        Pokemon[] equipo1 = {ElementPokemon.getPokemon()[0], ElementPokemon.getPokemon()[1], ElementPokemon.getPokemon()[2]};
-        Pokemon[] equipo2 = {ElementPokemon.getPokemon()[3], ElementPokemon.getPokemon()[4], ElementPokemon.getPokemon()[5]};
+        // Obtener los nombres y equipos de los entrenadores
+        String nombreEntrenador1 = entrenador1.getNombre();
+        String nombreEntrenador2 = entrenador2.getNombre();
+
+        Pokemon[] equipo1 = entrenador1.getEquipo();
+        Pokemon[] equipo2 = entrenador2.getEquipo();
+
+        // Mostrar equipos iniciales
+        System.out.println("\nEquipos iniciales:");
+        System.out.println(nombreEntrenador1 + ":");
+        for (Pokemon p : equipo1) {
+            System.out.println("- " + p.getNamePokemon() + " (HP: " + p.getHP() + ", Tipo: " + p.getTypePokemon() + ")");
+        }
+
+        System.out.println("\n" + nombreEntrenador2 + ":");
+        for (Pokemon p : equipo2) {
+            System.out.println("- " + p.getNamePokemon() + " (HP: " + p.getHP() + ", Tipo: " + p.getTypePokemon() + ")");
+        }
 
         // Iniciar la batalla
         Batalla batalla = new Batalla();

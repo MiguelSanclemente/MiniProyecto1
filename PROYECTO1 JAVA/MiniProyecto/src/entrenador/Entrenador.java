@@ -5,27 +5,49 @@ import pokemon.Pokemon;
 import java.util.Scanner;
 
 public class Entrenador {
-    String[] Trainers = new String[2];
-    static int contarTrainer;
-
-    public String getNameTrainer() {
-        return "entrenador "+ Trainers[contarTrainer];
-    }
-
-    public String toString(){
-        return "entrenador "+ Trainers[contarTrainer];
-    }
+    private String nombre; // Nombre del entrenador
+    private Pokemon[] equipo; // Equipo de Pokémon del entrenador
 
     public void setNameTrainer(Scanner sc) {
         Pokemon pokemon = new Pokemon();
-        for (int i = 0; i < Trainers.length; i++) {
-            System.out.println("Ingrese el nombre del entrenador " + String.format("%02d", i + 1));
-            Trainers[i] = sc.nextLine();
-            pokemon.menuPokemon(sc, Trainers);
+
+        // Solicitar el nombre del entrenador
+        System.out.println("Ingrese el nombre del entrenador:");
+        nombre = sc.nextLine();
+
+        // Configurar el equipo del entrenador
+        System.out.println("¿Cómo quieres jugar, " + nombre + "?");
+        System.out.println("1. Pokemones aleatorios");
+        System.out.println("2. Crear tus propios pokemones");
+        int opcion = sc.nextInt();
+        sc.nextLine(); // Consumir el salto de línea pendiente
+
+        switch (opcion) {
+            case 1 -> {
+                // Generar equipo aleatorio
+                equipo = pokemon.randomPokemonTeam(3);
+                System.out.println("Equipo generado para " + nombre + ":");
+                for (Pokemon p : equipo) {
+                    System.out.println("- " + p.getNamePokemon() + " (HP: " + p.getHP() + ", Tipo: " + p.getTypePokemon() + ")");
+                }
+            }
+            case 2 -> {
+                // Crear equipo personalizado
+                pokemon.createPokemon(sc);
+                equipo = pokemon.getPokemons(); // Asignar el equipo creado
+            }
+            default -> {
+                System.out.println("Opción no válida. Se generará un equipo aleatorio por defecto.");
+                equipo = pokemon.randomPokemonTeam(3);
+            }
         }
     }
 
-    public String[] getTrainers() {
-        return Trainers;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Pokemon[] getEquipo() {
+        return equipo;
     }
 }

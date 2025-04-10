@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.Collections;
 
 
-public class    Pokemon {
+public class Pokemon {
     String namePokemon;
     short hp;
     TipoPokemon typePokemon;
     Ataque [] ataque = new Ataque[4];
 
-    Pokemon[] pokemons = new Pokemon[3];
+    private Pokemon[] pokemons = new Pokemon[3]; // Equipo de Pokémon creado
     ElementPokemon element = new ElementPokemon();
     private Pokemon[] pokemon;
 
@@ -87,6 +87,10 @@ public class    Pokemon {
         return ataque;
     }
 
+    public Pokemon[] getPokemons() {
+        return pokemons;
+    }
+
     public void menuPokemon(Scanner sc, String[] Trainers){
         System.out.println("como quieres jugar?: \n1. pokemones aleatorio\n2. crear tus propios pokemones " );
         int opcion = sc.nextInt();
@@ -141,92 +145,32 @@ public class    Pokemon {
 
 
     public void createPokemon(Scanner sc) {
-        boolean flag = false;
         for (int i = 0; i < pokemons.length; i++) {
             pokemons[i] = new Pokemon();
             System.out.println("Ingrese el nombre del Pokémon " + (i + 1) + ":");
-            sc.nextLine(); // Consumir el salto de línea pendiente
             pokemons[i].setNamePokemon(sc.nextLine());
 
-            do {
-                try {
-                    System.out.println("Ingrese el número de vida del Pokémon: (1hp-350hp)");
-                    hp = sc.nextShort();
-                    sc.nextLine(); // Consumir el salto de línea pendiente
-                    if (hp > 0 && hp <= 350) {
-                        pokemons[i].setHP(hp);
-                        flag = false;
-                    } else {
-                        System.out.println("El número de vida del Pokémon no es válido. Debe estar entre 1 y 350.");
-                        flag = true;
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error, lo digitado no coincide", JOptionPane.ERROR_MESSAGE);
-                    sc.nextLine(); // Consumir el salto de línea pendiente
-                    flag = true;
-                }
-            } while (flag);
+            System.out.println("Ingrese el número de vida del Pokémon (1-350):");
+            short hp = sc.nextShort();
+            sc.nextLine(); // Consumir el salto de línea pendiente
+            pokemons[i].setHP(hp);
 
-            System.out.println("Ingrese el tipo del Pokémon " + pokemons[i].getNamePokemon() + ":");
-            byte contadorTipoPokemon = 0;
-            for (TipoPokemon tipoPokemon : TipoPokemon.values()) {
-                contadorTipoPokemon++;
-                System.out.println(contadorTipoPokemon + ". " + tipoPokemon.name());
-            }
-            System.out.print("Ingrese opción: ");
-
-            do {
-                int opcion = sc.nextInt();
-                sc.nextLine(); // Consumir el salto de línea pendiente
-                switch (opcion) {
-                    case 1 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.FUEGO);
-                        flag = false;
-                    }
-                    case 2 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.AGUA);
-                        flag = false;
-                    }
-                    case 3 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.TIERRA);
-                        flag = false;
-                    }
-                    case 4 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.PLANTA);
-                        flag = false;
-                    }
-                    case 5 -> {
-                        pokemons[i].setTypePokemon(TipoPokemon.ELECTRICO);
-                        flag = false;
-                    }
-                    default -> {
-                        System.out.println("Número no válido. Intente de nuevo.");
-                        flag = true;
-                    }
-                }
-            } while (flag);
+            System.out.println("Seleccione el tipo del Pokémon:");
+            System.out.println("1. FUEGO");
+            System.out.println("2. AGUA");
+            System.out.println("3. TIERRA");
+            System.out.println("4. PLANTA");
+            System.out.println("5. ELECTRICO");
+            int tipo = sc.nextInt();
+            sc.nextLine(); // Consumir el salto de línea pendiente
+            pokemons[i].setTypePokemon(TipoPokemon.values()[tipo - 1]);
 
             System.out.println("Forma de ataque: \n1. Crear tus propios ataques \n2. Hacer ataques aleatorios");
             int opcion = sc.nextInt();
             sc.nextLine(); // Consumir el salto de línea pendiente
             switch (opcion) {
-                case 1 -> {
-                    Ataque[] ataquesPersonalizados = crearAtaquesPersonalizados(sc);
-                    pokemons[i].ataque = ataquesPersonalizados;
-                    System.out.println("Ataques personalizados asignados:");
-                    for (Ataque ataque : ataquesPersonalizados) {
-                        System.out.println("- " + ataque.getNameAtaque());
-                    }
-                }
-                case 2 -> {
-                    // Obtener ataques aleatorios del tipo correspondiente
-                    Ataque[] ataquesAleatorios = obtenerAtaquesAleatorios(pokemons[i].getTypePokemon());
-                    pokemons[i].ataque = ataquesAleatorios;
-                    System.out.println("Ataques asignados aleatoriamente:");
-                    for (Ataque ataque : ataquesAleatorios) {
-                        System.out.println("- " + ataque.getNameAtaque());
-                    }
-                }
+                case 1 -> pokemons[i].ataque = crearAtaquesPersonalizados(sc);
+                case 2 -> pokemons[i].ataque = obtenerAtaquesAleatorios(pokemons[i].getTypePokemon());
             }
         }
     }
